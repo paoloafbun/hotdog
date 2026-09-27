@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Little Game Hub</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    #fff7d6 0 7%,
+                    transparent 8%
+                ),
+                radial-gradient(
+                    circle at 80% 10%,
+                    #e8f8ff 0 6%,
+                    transparent 7%
+                ),
+                linear-gradient(135deg, #fffdf3, #eefaff);
+
+            color: #5f6870;
+        }
+
+        .page {
+            width: min(1100px, 92%);
+            margin: auto;
+            padding: 50px 0;
+        }
+
+        /* HEADER */
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .little-icon {
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #59636b;
+
+            font-size: clamp(
+                2.3rem,
+                6vw,
+                4.5rem
+            );
+
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+
+            font-size: 1.05rem;
+
+            color: #8b969d;
+        }
+
+        /* GAME GRID */
+
+        #gameList {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(230px, 1fr)
+                );
+
+            gap: 22px;
+        }
+
+        /* GAME CARD */
+
+        .game-card {
+            position: relative;
+            overflow: hidden;
+
+            display: block;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.82
+            );
+
+            border: 2px solid #edf0ee;
+            border-radius: 25px;
+
+            padding: 25px;
+
+            text-decoration: none;
+            color: inherit;
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    110,
+                    125,
+                    130,
+                    0.09
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .game-card:hover {
+            transform:
+                translateY(-6px)
+                rotate(-1deg);
+
+            box-shadow:
+                0 14px 32px
+                rgba(
+                    110,
+                    125,
+                    130,
+                    0.15
+                );
+        }
+
+        /* GAME ICON */
+
+        .game-icon {
+            width: 75px;
+            height: 75px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            border-radius: 22px;
+
+            background: #fff4c7;
+
+            font-size: 38px;
+        }
+
+        .game-card:nth-child(2n)
+        .game-icon {
+            background: #e2f5ff;
+        }
+
+        .game-card:nth-child(3n)
+        .game-icon {
+            background: #e8f7df;
+        }
+
+        /* TEXT */
+
+        .game-card h2 {
+            margin:
+                0 0 8px;
+
+            color: #59636b;
+
+            font-size: 1.35rem;
+        }
+
+        .game-card p {
+            margin: 0;
+
+            color: #90999f;
+
+            line-height: 1.5;
+
+            font-size: 0.92rem;
+        }
+
+        /* PLAY BUTTON */
+
+        .play {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            padding:
+                8px 15px;
+
+            border-radius: 999px;
+
+            background: #fff0b5;
+
+            color: #69716f;
+
+            font-size: 0.85rem;
+
+            font-weight: bold;
+        }
+
+        /* EMPTY MESSAGE */
+
+        .empty {
+            text-align: center;
+
+            padding: 50px;
+
+            color: #9aa3a8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            margin-top: 45px;
+
+            color: #a1aaae;
+
+            font-size: 0.85rem;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .page {
+                padding: 30px 0;
+            }
+
+            #gameList {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="little-icon">
+            🌭
+        </div>
+
+        <h1>
+            game
+        </h1>
+
+        <p class="subtitle">
+            games games
+        </p>
+
+    </header>
+
+
+    <!-- GAMES APPEAR HERE -->
+
+    <main id="gameList"></main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        footer
+    </footer>
+
+</div>
+
+
+<script>
+
+    /*
+    ╭──────────────────────────────────────────╮
+    │            ADD YOUR GAMES HERE           │
+    ╰──────────────────────────────────────────╯
+
+    To add a game, copy this:
+
+    {
+        name: "Game Name",
+        file: "games/game.html",
+        icon: "🎮",
+        description: "A little description."
+    },
+
+    Then change the information.
+
+    Example:
+
+    {
+        name: "Snake",
+        file: "games/snake.html",
+        icon: "🐍",
+        description: "Eat the apples!"
+    },
+
+    */
+
+    const games = [
+
+        {
+            name: "Diamond",
+            file: "games/diamond.html",
+            icon: "💎",
+            description:
+                "pokemon diamond"
+        },
+
+        {
+            name: "Tetris",
+            file: "games/tetris.html",
+            icon: "🧱",
+            description:
+                "Stack the blocks and clear some lines."
+        },
+
+        {
+            name: "Pong",
+            file: "games/pong.html",
+            icon: "🏓",
+            description:
+                "A tiny classic game of pong."
+        },
+
+        /*
+        ADD NEW GAMES BELOW THIS LINE
+        */
+
+        {
+            name: "My New Game",
+            file: "games/my-game.html",
+            icon: "🍎",
+            description:
+                "Put your game description here!"
+        }
+
+    ];
+
+
+    /*
+    ╭──────────────────────────────────────────╮
+    │          DON'T EDIT BELOW HERE           │
+    ╰──────────────────────────────────────────╯
+    */
+
+    const gameList =
+        document.getElementById("gameList");
+
+
+    if (games.length === 0) {
+
+        gameList.innerHTML = `
+            <div class="empty">
+
+                <p>
+                    No games yet...
+                </p>
+
+                <p>
+                    Go make one!
+                </p>
+
+            </div>
+        `;
+
+    } else {
+
+        games.forEach(game => {
+
+            const card =
+                document.createElement("a");
+
+            card.className =
+                "game-card";
+
+            card.href =
+                game.file;
+
+            card.innerHTML = `
+
+                <div class="game-icon">
+                    ${game.icon}
+                </div>
+
+                <h2>
+                    ${game.name}
+                </h2>
+
+                <p>
+                    ${game.description}
+                </p>
+
+                <span class="play">
+                    Play ♡
+                </span>
+
+            `;
+
+            gameList.appendChild(card);
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
